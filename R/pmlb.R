@@ -43,7 +43,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' require(slbR)
 #'
 #' # load a specific dataset from pmlb
-#' test <- pmlb.load(datasets="adult")
+#' test <- pmlb.load(datasets="adult", clean.nan=FALSE, clean.ohe=FALSE)
 #' length(test$data) == 1  # the number of datasets requested
 #' length(test$data$adult$Y) == 48842  # the number of known features in pmlb
 #'

@@ -56,7 +56,7 @@ A function to load a specified dataset from the PMLB dataset.
 \examples{
 require(slbR)
 # request 1 specific dataset from the pmlb dataset
-test <- load.datasets(repositories="pmlb", datasets="adult")
+test <- load.datasets(repositories="pmlb", datasets="adult", clean.nan=FALSE, clean.ohe=FALSE)
 length(test$adult$Y) == 48842 # a known example from the pmlb dataset
 
 # request all of the pmlb classification datasets
