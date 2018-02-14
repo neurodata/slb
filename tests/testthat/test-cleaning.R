@@ -3,8 +3,8 @@ context("Testing dataset cleaning...")
 result.noclean <- load.datasets(repositories="pmlb", datasets="adult", tasks="classification", clean.nan=FALSE, clean.ohe=FALSE)
 test_that("does not clean when not requested", {
   # run with no cleaning
-  expect_equal(dim(result.noclean$adult$X), c(48842, 14))
-  expect_equal(length(result.noclean$adult$Y), 48842)
+  result.cleaned <- clean.dataset(result.noclean$adult$X, clean.nan=FALSE, clean.ohe=FALSE)
+  expect_equal(dim(result.cleaned$X), c(48842, 14))
 })
 
 test_that("one-hot-encodes as requested", {
