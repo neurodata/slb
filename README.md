@@ -1,4 +1,4 @@
-# Linear Optimal Low Rank Projection (slbR)
+# Statistical Learning Benchmarks for R (slbR)
 
 ## Contents
 
@@ -7,8 +7,6 @@
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
 - [Demo](#demo)
-- [Results](#results)
-- [License](./LICENSE)
 - [Issues](https://github.com/ebridge2/slbR/issues)
 
 # Overview
