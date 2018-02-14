@@ -8,6 +8,12 @@ pmlb.load(datasets = NULL, tasks = NULL, clean.nan = TRUE,
   clean.ohe = 0.05)
 }
 \arguments{
+\item{datasets}{the name of the dataset you wish to load. Defaults to \code{NULL}.
+\itemize{
+\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
+\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+}}
+
 \item{tasks}{the type of the tasks to return datasets for, either "classification" or "regression". Defaults to \code{NULL}.
 \itemize{
 \item{\code{NULL}}{Return all datasets matching the desired query.}
@@ -26,12 +32,6 @@ pmlb.load(datasets = NULL, tasks = NULL, clean.nan = TRUE,
 \item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
 \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
 \item{\code{FALSE}}{Do not one-hot-encode any columns.}
-}}
-
-\item{dataset}{the name of the dataset you wish to load. Defaults to \code{NULL}.
-\itemize{
-\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
 }}
 }
 \value{
@@ -52,12 +52,18 @@ A function to load a specified dataset from the PMLB dataset.
 require(slbR)
 
 # load a specific dataset from pmlb
-test <- pmlb.load(datasets="adult", clean.nan=FALSE, clean.ohe=FALSE)
+test <- pmlb.load(datasets="adult")
+length(test$data) == 1  # the number of datasets requested
+length(test$data$adult$Y) == 48842  # the number of known features in pmlb
 
+\dontrun{
 test <- pmlb.load(tasks="classification")
+length(test$data) == 166  # the number of classification tasks in pmlb
+}
 
 # load 2 datasets from pmlb
 test <- pmlb.load(datasets=c("adult", "chscase_geyser1"))
+length(test$data) == 2
 }
 \author{
 Eric Bridgeford

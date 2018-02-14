@@ -7,17 +7,17 @@
 pmlb.list(datasets = NULL, tasks = NULL)
 }
 \arguments{
+\item{datasets}{the name of the dataset you wish to load. Defaults to \code{NULL}.
+\itemize{
+\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
+\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+}}
+
 \item{tasks}{the type of the task, either "classification" or "regression". Defaults to \code{NULL}.
 \itemize{
 \item{\code{NULL}}{Return all datasets matching the desired query.}
 \item{\code{'classification'}}{Load all classification datasets matching the desired query.}
 \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
-}}
-
-\item{dataset}{the name of the dataset you wish to load. Defaults to \code{NULL}.
-\itemize{
-\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
 }}
 }
 \value{
