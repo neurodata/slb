@@ -4,9 +4,23 @@
 \alias{load.datasets}
 \title{Load Datasets from Available Repositories}
 \usage{
-load.datasets(repositories = NULL, datasets = NULL, tasks = NULL)
+load.datasets(repositories = NULL, datasets = NULL, tasks = NULL,
+  clean.nan = TRUE, clean.ohe = 0.05)
 }
 \arguments{
+\item{clean.nan}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+\itemize{
+\item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
+\item{\code{FALSE}}{Do not remove samples.}
+}}
+
+\item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{10}.
+\itemize{
+\item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
+\item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
+\item{\code{FALSE}}{Do not one-hot-encode any columns.}
+}}
+
 \item{repository}{the name of the repository you would like to query a dataset from. Defaults to \code{NULL}.
 \itemize{
 \item{\code{NULL}}{Load all datasets matching the query from the particular repository.}

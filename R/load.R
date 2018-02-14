@@ -22,6 +22,17 @@ available.repositories <- c("pmlb")
 #' \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
 #' \item{\code{c("taskid1", "taskid2", ...)}}{Load data for the indicated tasks.}
 #' }
+#' @param clean.nan whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+#' \itemize{
+#' \item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
+#' \item{\code{FALSE}}{Do not remove samples.}
+#' }
+#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{10}.
+#' \itemize{
+#' \item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
+#' \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
+#' \item{\code{FALSE}}{Do not one-hot-encode any columns.}
+#' }
 #' @return A list of lists, where each element is named for a dataset, containing the following:
 #' \itemize{
 #' \item{X}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}
@@ -39,13 +50,13 @@ available.repositories <- c("pmlb")
 #' length(test) <- 166  # validates that we loaded all of the classification datasets from pmlb
 #' @author Eric Bridgeford
 #' @export
-load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL) {
+load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05) {
   if (is.null(repositories)) {
     repositories <- available.repositories
   }
   data.repos <- lapply(repositories, function(repository) {
     if (repository == 'pmlb') {
-      data <- pmlb.load(datasets=datasets, tasks=tasks)$data
+      data <- pmlb.load(datasets=datasets, tasks=tasks, clean.nan=clean.nan, clean.ohe=clean.ohe)$data
     }
 
     return(data)

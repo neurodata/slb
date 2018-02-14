@@ -4,7 +4,8 @@
 \alias{pmlb.load}
 \title{Load from PMLB Dataset}
 \usage{
-pmlb.load(datasets = NULL, tasks = NULL)
+pmlb.load(datasets = NULL, tasks = NULL, clean.nan = TRUE,
+  clean.ohe = 0.05)
 }
 \arguments{
 \item{tasks}{the type of the tasks to return datasets for, either "classification" or "regression". Defaults to \code{NULL}.
@@ -14,13 +15,24 @@ pmlb.load(datasets = NULL, tasks = NULL)
 \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
 }}
 
+\item{clean.nan}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+\itemize{
+\item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
+\item{\code{FALSE}}{Do not remove samples.}
+}}
+
+\item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{10}.
+\itemize{
+\item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
+\item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
+\item{\code{FALSE}}{Do not one-hot-encode any columns.}
+}}
+
 \item{dataset}{the name of the dataset you wish to load. Defaults to \code{NULL}.
 \itemize{
 \item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
 \item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
 }}
-
-\item{clean}{whether to clean the dataset, using \link{dataset.clean}.}
 }
 \value{
 A list containing the following:

@@ -17,7 +17,17 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' \item{\code{'classification'}}{Load all classification datasets matching the desired query.}
 #' \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
 #' }
-#' @param clean whether to clean the dataset, using \link{dataset.clean}.
+#' @param clean.nan whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+#' \itemize{
+#' \item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
+#' \item{\code{FALSE}}{Do not remove samples.}
+#' }
+#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{10}.
+#' \itemize{
+#' \item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
+#' \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
+#' \item{\code{FALSE}}{Do not one-hot-encode any columns.}
+#' }
 #' @return A list containing the following:
 #' \itemize{
 #' \item{\code{data}}{The data for each dataset, as a list of the following:}
@@ -44,7 +54,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' test <- pmlb.load(datasets=c("adult", "chscase_geyser1"))
 #' length(test$data) == 2
 #' @export
-pmlb.load <- function(datasets=NULL, tasks=NULL) {
+pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05) {
   pmlbpath <- 'https://github.com/EpistasisLab/penn-ml-benchmarks'
 
   dsets.query <- pmlb.list(datasets=datasets, tasks=tasks)
@@ -55,17 +65,24 @@ pmlb.load <- function(datasets=NULL, tasks=NULL) {
     } else if (task == 'classification') {
       dset.nm <- dset.info$name
     }
-    data <- suppressMessages(suppressWarnings(invisible(read_tsv(gzcon(url(file.path("https://raw.githubusercontent.com", pmlb.owner, pmlb.repo,
+    data <- as.matrix(suppressMessages(suppressWarnings(invisible(read_tsv(gzcon(url(file.path("https://raw.githubusercontent.com", pmlb.owner, pmlb.repo,
                                                                        "master/datasets", task, dset.nm, paste(dset.nm, ".tsv.gz", sep="")))),
-                                                         col_names=TRUE))))
+                                                         col_names=TRUE)))))
+    if (clean.nan || clean.ohe) {
+      cleaned <- clean.dataset(data, clean.nan=clean.nan, clean.ohe=clean.ohe)
+      samples <- cleaned$samples
+      data <- cleaned$X
+    } else {
+      samples <- 1:dim(data)[1]
+    }
     if (task == 'classification') {
-      Y = as.matrix(data[names(data) == 'target'])
+      Y = as.matrix(data[colnames(data) == 'target'])
       if (dim(Y)[2] == 1) {
         Y <- Y[,1]
       }
-      return(list(X=as.matrix(data[,names(data) != 'target']), Y=Y))
+      return(list(X=as.matrix(data[,colnames(data) != 'target']), Y=Y, samples=samples))
     } else if (task == 'regression') {
-      return(list(X=as.matrix(data)))
+      return(list(X=as.matrix(data), samples=samples))
     }
   })
 
