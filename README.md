@@ -1,6 +1,6 @@
 # Statistical Learning Benchmarks for R (slbR)
 
-[![Travis-CI Build Status](https://travis-ci.org/neurodata/slbR.svg?branch=master)](https://travis-ci.org/neurodata/slbR)
+[![Travis-CI Build Status](https://travis-ci.org/neurodata/slbR.svg?branch=master)](https://travis-ci.org/neurodata/slbR) [![Codecov status](https://codecov.io/gh/neurodata/slbR/branch/master/graph/badge.svg)](https://codecov.io/gh/neurodata/slbR)
 
 ## Contents
 
