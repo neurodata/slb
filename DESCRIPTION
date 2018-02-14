@@ -1,0 +1,20 @@
+Package: stale
+Type: Package
+Title: STAtistical LEarning Benchmarks
+Version: 1.0
+Date: 2017-02-14
+Authors@R: c(person("Eric", "Bridgeford", role = c("aut", "cre"),
+	   	    email = "ericwb95@gmail.com"))
+Maintainer: Eric Bridgeford <ericwb95@gmail.com>
+Description: In assessing the generalizability of a statistical learning algorithm, it is vital to consider a variety of diverse, feature-rich datasets. In this package, we develop a simple interface to many common benchmark datasets, including the Penn Machine Learning Benchmarks Olson (2017) <arXiv:1703.00512>, allowing users to examine performance across many disparate contexts.
+Depends: R (>= 3.4.0)
+License: GPL-2
+URL: https://github.com/neurodata/stale
+Imports:
+  httr,
+  readr
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+Suggests:
