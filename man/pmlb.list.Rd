@@ -31,7 +31,7 @@ A list containing the following:
 A function to list available datasets for a specific task from the PMLB dataset. Also returns useful metadata.
 }
 \examples{
-require(stale)
+require(slbR)
 
 # get information about all of the classification tasks in pmlb
 test <- pmlb.list(tasks="classification")

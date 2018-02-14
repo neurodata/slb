@@ -29,7 +29,7 @@ available.repositories <- c("pmlb")
 #' }
 #'
 #' @examples
-#' require(stale)
+#' require(slbR)
 #' # request 1 specific dataset from the pmlb dataset
 #' test <- load.datasets(repositories="pmlb", datasets="adult")
 #' length(test$adult$Y) == 48842 # a known example from the pmlb dataset

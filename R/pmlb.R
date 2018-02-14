@@ -5,6 +5,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' Load from PMLB Dataset
 #'
 #' A function to load a specified dataset from the PMLB dataset.
+#' @importFrom readr read_tsv
 #' @param dataset the name of the dataset you wish to load. Defaults to \code{NULL}.
 #' \itemize{
 #' \item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
@@ -29,7 +30,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' @author Eric Bridgeford
 #'
 #' @examples
-#' require(stale)
+#' require(slbR)
 #'
 #' # load a specific dataset from pmlb
 #' test <- pmlb.load(datasets="adult")
@@ -54,7 +55,7 @@ pmlb.load <- function(datasets=NULL, tasks=NULL) {
     } else if (task == 'classification') {
       dset.nm <- dset.info$name
     }
-    data <- suppressMessages(suppressWarnings(invisible(read_table2(gzcon(url(file.path("https://raw.githubusercontent.com", pmlb.owner, pmlb.repo,
+    data <- suppressMessages(suppressWarnings(invisible(read_tsv(gzcon(url(file.path("https://raw.githubusercontent.com", pmlb.owner, pmlb.repo,
                                                                        "master/datasets", task, dset.nm, paste(dset.nm, ".tsv.gz", sep="")))),
                                                          col_names=TRUE))))
     if (task == 'classification') {
@@ -101,7 +102,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' @author Eric Bridgeford
 #'
 #' @examples
-#' require(stale)
+#' require(slbR)
 #'
 #' # get information about all of the classification tasks in pmlb
 #' test <- pmlb.list(tasks="classification")

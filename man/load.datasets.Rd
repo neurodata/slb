@@ -40,7 +40,7 @@ A list of lists, where each element is named for a dataset, containing the follo
 A function to load a specified dataset from the PMLB dataset.
 }
 \examples{
-require(stale)
+require(slbR)
 # request 1 specific dataset from the pmlb dataset
 test <- load.datasets(repositories="pmlb", datasets="adult")
 length(test$adult$Y) == 48842 # a known example from the pmlb dataset

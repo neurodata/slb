@@ -37,7 +37,7 @@ A list containing the following:
 A function to load a specified dataset from the PMLB dataset.
 }
 \examples{
-require(stale)
+require(slbR)
 
 # load a specific dataset from pmlb
 test <- pmlb.load(datasets="adult")
