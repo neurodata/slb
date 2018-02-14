@@ -6,6 +6,9 @@ r_packages:
 after_success:
   - Rscript -e 'library(covr); codecov()'
 
+install:
+  - ./travis-tool.sh install_r testthat
+
 language: R
 sudo: false
 cache: packages
