@@ -44,15 +44,11 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #'
 #' # load a specific dataset from pmlb
 #' test <- pmlb.load(datasets="adult", clean.nan=FALSE, clean.ohe=FALSE)
-#' length(test$data) == 1  # the number of datasets requested
-#' length(test$data$adult$Y) == 48842  # the number of known features in pmlb
 #'
 #' test <- pmlb.load(tasks="classification")
-#' length(test$data) == 166  # the number of classification tasks in pmlb
 #'
 #' # load 2 datasets from pmlb
 #' test <- pmlb.load(datasets=c("adult", "chscase_geyser1"))
-#' length(test$data) == 2
 #' @export
 pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05) {
   pmlbpath <- 'https://github.com/EpistasisLab/penn-ml-benchmarks'
