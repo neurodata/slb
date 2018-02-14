@@ -28,7 +28,7 @@ clean.dataset <- function(data, clean.nan=TRUE, clean.ohe=10) {
   n <- dimx[1]; d <- dimx[2]
   if (clean.ohe < 1) {
     Kmax <- clean.ohe*n
-  } else if (is.integer(clean.ohe)) {
+  } else if (round(clean.ohe) == clean.ohe) {
     Kmax <- clean.ohe
   } else if (!isTRUE(clean.ohe)) {
     Kmax <- d
