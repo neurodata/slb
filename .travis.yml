@@ -7,13 +7,6 @@ after_success:
   - Rscript -e 'library(covr); codecov()'
 
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-
-install:
-  - ./travis-tool.sh install_r testthat
-
 language: R
 sudo: false
 cache: packages
