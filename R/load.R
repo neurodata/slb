@@ -3,19 +3,19 @@ available.repositories <- c("pmlb")
 #' Load Datasets from Available Repositories
 #'
 #' A function to load a specified dataset from the PMLB dataset.
-#' @param repository the name of the repository you would like to query a dataset from. Defaults to \code{NULL}.
+#' @param repositories the name of the repository you would like to query a dataset from. Defaults to \code{NULL}.
 #' \itemize{
 #' \item{\code{NULL}}{Load all datasets matching the query from the particular repository.}
 #' \item{\code{"pmlb"}}{Load datasets from the Penn Machine-Learning Benchmarks.}
 #' \item{\code{c("repo1", "repo2", ...)}}{Load data from the indicated repositories.}
 #' }
-#' @param dataset the name of the dataset you wish to load. Defaults to \code{NULL}.
+#' @param datasets the name of the dataset you wish to load. Defaults to \code{NULL}.
 #' \itemize{
 #' \item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
 #' \item{\code{'datasetid'}}{Returns the dataset with the desired id matching the desired query.}
 #' \item{\code{c("datasetid1", "datasetid2", ...)}}{Load data from the indicated datasets.}
 #' }
-#' @param task the type of the task, either "classification" or "regression". Defaults to \code{NULL}.
+#' @param tasks the type of the task, either "classification" or "regression". Defaults to \code{NULL}.
 #' \itemize{
 #' \item{\code{NULL}}{Return all datasets matching the desired query.}
 #' \item{\code{'classification'}}{Load all classification datasets matching the desired query.}
