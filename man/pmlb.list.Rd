@@ -9,22 +9,22 @@ pmlb.list(datasets = NULL, tasks = NULL)
 \arguments{
 \item{datasets}{the name of the dataset you wish to load. Defaults to \code{NULL}.
 \itemize{
-\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+\item \code{NULL} Load all the datasets without specifying a specific name matching the desired query.
+\item \code{'datasetid'} Returns the dataset with the desired id \code{'datasetid'} matching the desired query.
 }}
 
 \item{tasks}{the type of the task, either "classification" or "regression". Defaults to \code{NULL}.
 \itemize{
-\item{\code{NULL}}{Return all datasets matching the desired query.}
-\item{\code{'classification'}}{Load all classification datasets matching the desired query.}
-\item{\code{'regression'}}{Load all regression datasets matching the desired query.}
+\item \code{NULL} Return all datasets matching the desired query.
+\item \code{'classification'} Load all classification datasets matching the desired query.
+\item \code{'regression'} Load all regression datasets matching the desired query.
 }}
 }
 \value{
 A list containing the following:
 \itemize{
-\item{\code{dsets.meta}}{A \code{[length(tasks)]} element list, where each sublist contains a \code{tibble} where each row contains relevant metadata for the desired dataset.}
-\item{\code{dsets.info}}{A \code{[n]} list where each element is named after a respective dataset, and each element contains the \code{did} and \code{task} of that dataset.}
+\item \code{dsets.meta} A \code{[length(tasks)]} element list, where each sublist contains a \code{tibble} where each row contains relevant metadata for the desired dataset.
+\item \code{dsets.info} A \code{[n]} list where each element is named after a respective dataset, and each element contains the \code{did} and \code{task} of that dataset.
 }
 }
 \description{
