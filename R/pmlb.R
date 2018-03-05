@@ -78,7 +78,7 @@ pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05)
       samples <- 1:dim(data)[1]
     }
     if (task == 'classification') {
-      Y = as.matrix(data[colnames(data) == 'target'])
+      Y = as.matrix(data[,colnames(data) == 'target'])
       if (dim(Y)[2] == 1) {
         Y <- Y[,1]
       }

@@ -36,18 +36,20 @@ clean.dataset <- function(data, clean.nan=TRUE, clean.ohe=10) {
   Xce <- lapply(1:d, function(i) {
     unx <- unique(X[,i])
     cname <- colnames(X)[i]
-    K <- length(unx)
-    if (K > Kmax || K <= 2) {
-      # if most of the elements are unique, return the original column
-      x <- X[, i]
-    } else {
-      # one-hot-encode
-      x <- array(0, dim=c(n, K))
-      for (j in 1:length(unx)) {
-        x[which(X[,i] == unx[j]), j] <- 1
+    x <- X[, i]
+    if (cname != 'target') {
+      K <- length(unx)
+      if (K <= Kmax || K > 2) {
+        # one-hot-encode
+        x <- array(0, dim=c(n, K))
+        for (j in 1:length(unx)) {
+          x[which(X[,i] == unx[j]), j] <- 1
+        }
       }
+      enc <- array(cname, dim=c(ifelse(K > Kmax || K <= 2, 1, K)))
+    } else {
+      enc <- cname
     }
-    enc <- array(cname, dim=c(ifelse(K > Kmax || K <= 2, 1, K)))
     return(list(enc=enc, x=x))
   })
   enc <- do.call(c, lapply(Xce, function(x) x$enc))
