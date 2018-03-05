@@ -52,7 +52,7 @@ available.repositories <- c("pmlb")
 #' }
 #' @author Eric Bridgeford
 #' @export
-load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05) {
+load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=10) {
   if (is.null(repositories)) {
     repositories <- available.repositories
   }

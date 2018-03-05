@@ -56,7 +56,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' test <- pmlb.load(datasets=c("adult", "chscase_geyser1"))
 #' length(test$data) == 2
 #' @export
-pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=0.05) {
+pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=10) {
   pmlbpath <- 'https://github.com/EpistasisLab/penn-ml-benchmarks'
 
   dsets.query <- pmlb.list(datasets=datasets, tasks=tasks)

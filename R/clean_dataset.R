@@ -39,7 +39,7 @@ clean.dataset <- function(data, clean.nan=TRUE, clean.ohe=10) {
     x <- X[, i]
     if (cname != 'target') {
       K <- length(unx)
-      if (K <= Kmax || K > 2) {
+      if (K <= Kmax & K > 2) {
         # one-hot-encode
         x <- array(0, dim=c(n, K))
         for (j in 1:length(unx)) {
