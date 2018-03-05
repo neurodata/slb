@@ -22,7 +22,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' \item \code{TRUE} Remove samples that have features with \code{NaN} or non-finite.
 #' \item \code{FALSE} Do not remove samples.
 #' }
-#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{10}.
+#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{FALSE}.
 #' \itemize{
 #' \item \code{clean.ohe < 1} Converts columns with < thr*n unique identifiers to one-hot encoded.
 #' \item \code{is.integer(clean.ohe)} Converts columns with < thr unique identifiers to one-hot encoded.
@@ -56,7 +56,7 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' test <- pmlb.load(datasets=c("adult", "chscase_geyser1"))
 #' length(test$data) == 2
 #' @export
-pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=10) {
+pmlb.load <- function(datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=FALSE) {
   pmlbpath <- 'https://github.com/EpistasisLab/penn-ml-benchmarks'
 
   dsets.query <- pmlb.list(datasets=datasets, tasks=tasks)

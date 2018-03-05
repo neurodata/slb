@@ -27,7 +27,7 @@ available.repositories <- c("pmlb")
 #' \item \code{TRUE} Remove samples that have features with \code{NaN} or non-finite.
 #' \item \code{FALSE} Do not remove samples.
 #' }
-#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{10}.
+#' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{FALSE}.
 #' \itemize{
 #' \item \code{clean.ohe < 1} Converts columns with < thr*n unique identifiers to one-hot encoded.
 #' \item \code{is.integer(clean.ohe)} Converts columns with < thr unique identifiers to one-hot encoded.
@@ -52,7 +52,7 @@ available.repositories <- c("pmlb")
 #' }
 #' @author Eric Bridgeford
 #' @export
-load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=10) {
+load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clean.nan=TRUE, clean.ohe=FALSE) {
   if (is.null(repositories)) {
     repositories <- available.repositories
   }
