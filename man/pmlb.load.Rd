@@ -10,40 +10,29 @@ pmlb.load(datasets = NULL, tasks = NULL, clean.nan = TRUE,
 \arguments{
 \item{datasets}{the name of the dataset you wish to load. Defaults to \code{NULL}.
 \itemize{
-\item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-\item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+\item \code{NULL} Load all the datasets without specifying a specific name matching the desired query.
+\item \code{'datasetid'} Returns the dataset with the desired id \code{'datasetid'} matching the desired query.
 }}
 
 \item{tasks}{the type of the tasks to return datasets for, either "classification" or "regression". Defaults to \code{NULL}.
 \itemize{
-\item{\code{NULL}}{Return all datasets matching the desired query.}
-\item{\code{'classification'}}{Load all classification datasets matching the desired query.}
-\item{\code{'regression'}}{Load all regression datasets matching the desired query.}
+\item \code{NULL} Return all datasets matching the desired query.
+\item \code{'classification'} Load all classification datasets matching the desired query.
+\item \code{'regression'} Load all regression datasets matching the desired query.
 }}
 
 \item{clean.nan}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
 \itemize{
-\item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
-\item{\code{FALSE}}{Do not remove samples.}
+\item \code{TRUE} Remove samples that have features with \code{NaN} or non-finite.
+\item \code{FALSE} Do not remove samples.
 }}
 
 \item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{10}.
 \itemize{
-\item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
-\item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
-\item{\code{FALSE}}{Do not one-hot-encode any columns.}
+\item \code{clean.ohe < 1} Converts columns with < thr*n unique identifiers to one-hot encoded.
+\item \code{is.integer(clean.ohe)} Converts columns with < thr unique identifiers to one-hot encoded.
+\item \code{FALSE} Do not one-hot-encode any columns.
 }}
-}
-\value{
-A list containing the following:
-\itemize{
-\item{\code{data}}{The data for each dataset, as a list of the following:}
-\itemize{
-\item{X}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}
-\item{Y}{\code{[n]} vector with labels for each of the \code{n} samples. This item is only returned in the event that the dataset is a classification task.}
-}
-\item{\code{dsets.info}}{Useful metadata for each dataset. See \link{pmlb.list} for details.}
-}
 }
 \description{
 A function to load a specified dataset from the PMLB dataset.

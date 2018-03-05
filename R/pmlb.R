@@ -8,34 +8,34 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #' @importFrom readr read_tsv
 #' @param datasets the name of the dataset you wish to load. Defaults to \code{NULL}.
 #' \itemize{
-#' \item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-#' \item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+#' \item \code{NULL} Load all the datasets without specifying a specific name matching the desired query.
+#' \item \code{'datasetid'} Returns the dataset with the desired id \code{'datasetid'} matching the desired query.
 #' }
 #' @param tasks the type of the tasks to return datasets for, either "classification" or "regression". Defaults to \code{NULL}.
 #' \itemize{
-#' \item{\code{NULL}}{Return all datasets matching the desired query.}
-#' \item{\code{'classification'}}{Load all classification datasets matching the desired query.}
-#' \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
+#' \item \code{NULL} Return all datasets matching the desired query.
+#' \item \code{'classification'} Load all classification datasets matching the desired query.
+#' \item \code{'regression'} Load all regression datasets matching the desired query.
 #' }
 #' @param clean.nan whether to remove samples with invalid entries. Defaults to \code{TRUE}.
 #' \itemize{
-#' \item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
-#' \item{\code{FALSE}}{Do not remove samples.}
+#' \item \code{TRUE} Remove samples that have features with \code{NaN} or non-finite.
+#' \item \code{FALSE} Do not remove samples.
 #' }
 #' @param clean.ohe options for whether to one-hot-encode columns. Defaults to \code{10}.
 #' \itemize{
-#' \item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
-#' \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
-#' \item{\code{FALSE}}{Do not one-hot-encode any columns.}
+#' \item \code{clean.ohe < 1} Converts columns with < thr*n unique identifiers to one-hot encoded.
+#' \item \code{is.integer(clean.ohe)} Converts columns with < thr unique identifiers to one-hot encoded.
+#' \item \code{FALSE} Do not one-hot-encode any columns.
 #' }
 #' @return A list containing the following:
 #' \itemize{
-#' \item{\code{data}}{The data for each dataset, as a list of the following:}
+#' \item \code{data} The data for each dataset, as a list of the following:}
 #' \itemize{
-#' \item{X}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}
-#' \item{Y}{\code{[n]} vector with labels for each of the \code{n} samples. This item is only returned in the event that the dataset is a classification task.}
+#' \item \code{X} \code{[n, d]} array with the \code{n} samples in \code{d} dimensions.
+#' \item \code{Y} \code{[n]} vector with labels for each of the \code{n} samples. This item is only returned in the event that the dataset is a classification task.
 #' }
-#' \item{\code{dsets.info}}{Useful metadata for each dataset. See \link{pmlb.list} for details.}
+#' \item \code{dsets.info} Useful metadata for each dataset. See \link{pmlb.list} for details.
 #' }
 #' @author Eric Bridgeford
 #'
@@ -104,19 +104,19 @@ pmlb.repo <- 'penn-ml-benchmarks'
 #'
 #' @param datasets the name of the dataset you wish to load. Defaults to \code{NULL}.
 #' \itemize{
-#' \item{\code{NULL}}{Load all the datasets without specifying a specific name matching the desired query.}
-#' \item{\code{'datasetid'}}{Returns the dataset with the desired id \code{'datasetid'} matching the desired query.}
+#' \item \code{NULL} Load all the datasets without specifying a specific name matching the desired query.
+#' \item \code{'datasetid'} Returns the dataset with the desired id \code{'datasetid'} matching the desired query.
 #' }
 #' @param tasks the type of the task, either "classification" or "regression". Defaults to \code{NULL}.
 #' \itemize{
-#' \item{\code{NULL}}{Return all datasets matching the desired query.}
-#' \item{\code{'classification'}}{Load all classification datasets matching the desired query.}
-#' \item{\code{'regression'}}{Load all regression datasets matching the desired query.}
+#' \item \code{NULL} Return all datasets matching the desired query.
+#' \item \code{'classification'} Load all classification datasets matching the desired query.
+#' \item \code{'regression'} Load all regression datasets matching the desired query.
 #' }
 #' @return A list containing the following:
 #' \itemize{
-#' \item{\code{dsets.meta}}{A \code{[length(tasks)]} element list, where each sublist contains a \code{tibble} where each row contains relevant metadata for the desired dataset.}
-#' \item{\code{dsets.info}}{A \code{[n]} list where each element is named after a respective dataset, and each element contains the \code{did} and \code{task} of that dataset.}
+#' \item \code{dsets.meta} A \code{[length(tasks)]} element list, where each sublist contains a \code{tibble} where each row contains relevant metadata for the desired dataset.
+#' \item \code{dsets.info} A \code{[n]} list where each element is named after a respective dataset, and each element contains the \code{did} and \code{task} of that dataset.
 #' }
 #' @author Eric Bridgeford
 #'
