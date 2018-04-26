@@ -1,4 +1,4 @@
-# Statistical Learning Benchmarks for R (slbR)
+# Statistical Learning Benchmarks
 
 [![Travis-CI Build Status](https://travis-ci.org/neurodata/slbR.svg?branch=master)](https://travis-ci.org/neurodata/slbR) [![Codecov status](https://codecov.io/gh/neurodata/slbR/branch/master/graph/badge.svg)](https://codecov.io/gh/neurodata/slbR)
 
@@ -9,11 +9,11 @@
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
 - [Demo](#demo)
-- [Issues](https://github.com/ebridge2/slbR/issues)
+- [Issues](https://github.com/ebridge2/slb/issues)
 
 # Overview
 
-In assessing the generalizability of a statistical learning algorithm, it is vital to consider a variety of diverse, feature-rich datasets. In this package, we develop a simple interface to many common benchmark datasets, including the Penn Machine Learning Benchmarks Olson (2017) <arXiv:1703.00512>, allowing users to examine performance across many disparate contexts.
+In assessing the generalizability of a statistical learning algorithm, it is vital to consider a variety of diverse, feature-rich datasets. In this package, we develop a simple interface to many common benchmark datasets, including the Penn Machine Learning Benchmarks Olson (2017) <arXiv:1703.00512>, the University of California-Irvine Machine Learning Repository, and MNIST Lecun et al. <doi:10.1109/5.726791>, allowing users to examine performance across many disparate contexts. Additionally, we provide useful utilities for data cleaning, data preparation, and cross-validation.
 
 # Repo Contents
 
@@ -80,15 +80,15 @@ From an `R` session, type:
 
 ```
 require(devtools)
-install_github('neurodata/slbR', force=TRUE)  # install slbR
+install_github('neurodata/slb', force=TRUE)  # install slbR
 ```
 
-The package should take approximately 20 seconds to install on a recommended computer.
+The package should take approximately 60 seconds to install on a recommended computer.
 
 # Demo
 
 As an example, load all classification datasets from the `PMLB` repository:
 ```
-require(slbR)
-data <- load.datasets(repositories="PMLB", task="classiciation")
+library(slb)
+data <- slb.load.datasets(repositories="PMLB", task="classiciation")
 ```
