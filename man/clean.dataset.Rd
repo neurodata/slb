@@ -2,20 +2,24 @@
 % Please edit documentation in R/clean_dataset.R
 \name{clean.dataset}
 \alias{clean.dataset}
-\title{Dataset Cleansing}
+\title{datasetset Cleansing}
 \usage{
-clean.dataset(data, clean.nan = TRUE, clean.ohe = 10)
+clean.dataset(dataset, clean.invalid = TRUE, clean.ohe = FALSE)
 }
 \arguments{
-\item{data}{\code{[n, d]} array/matrix with the \code{n} samples in \code{d} dimensions.}
-
-\item{clean.nan}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+\item{dataset}{a list with the following:
 \itemize{
-\item{\code{TRUE}}{Remove samples that have features with \code{NaN} or non-finite.}
-\item{\code{FALSE}}{Do not remove samples.}
+\item{\code{X}}{\code{[n, d]} matrix containing \code{n} samples in \code{d} dimensions.}
+\item{\code{Y}}{\code{[n, r]} matrix containing  or \code{[n]} vector containing regressors or class labels forsamples in \code{X}.}
 }}
 
-\item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{10}.
+\item{clean.invalid}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+\itemize{
+\item \code{TRUE} Remove samples that have features with \code{NaN} entries or non-finite.
+\item \code{FALSE} Do not remove samples that have features with \code{NaN} entries or are non-finite..
+}}
+
+\item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{FALSE}.
 \itemize{
 \item{\code{clean.ohe < 1}}{Converts columns with < thr*n unique identifiers to one-hot encoded.}
 \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
@@ -25,12 +29,13 @@ clean.dataset(data, clean.nan = TRUE, clean.ohe = 10)
 \value{
 A list containing the following:
 \itemize{
-\item{X}{\code{[m, d+r]} the array with \code{m} samples in \code{d+r} dimensions, where \code{r} is the number of additional columns appended for encodings. \code{m < n} when  there are non-finite entries. \code{colnames(data)} returns the column names of the cleaned columns.}
-\item{samples}{\code{m} the sample ids that are included in the final array, where \code{samp[i]} is the original row id corresponding to \code{Xc[i,]}. If \code{m < n}, there were non-finite entries that were purged.}
+\item{X}{\code{[m, d+r]} the array with \code{m} samples in \code{d+r} dimensions, where \code{r} is the number of additional columns appended for encodings. \code{m < n} when  there are non-finite or \code{NaN} entries. \code{colnames(dataset)} returns the column names of the cleaned columns.}
+\item{Y}{\code{[m, r]} matrix or \code{[n]} vector containg regressors or class labels for samples in \code{X}. \code{m < n} when there are non-finite or \code{NaN} entries.}
+\item{samples}{\code{m} the sample ids that are included in the final array, where \code{samp[i]} is the original row id corresponding to \code{Xc[i,]}. If \code{m < n}, there were non-finite or \code{NaN} entries that were purged.}
 }
 }
 \description{
-A function for scrubbing a dataset for usage with most standard algorithms. This involves one-hot-encoding columns that are probably categorical.
+A function for scrubbing a datasetset for usage with most standard algorithms. This involves one-hot-encoding columns that are probably categorical.
 }
 \author{
 Eric Bridgeford
