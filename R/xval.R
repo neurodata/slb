@@ -1,4 +1,3 @@
-
 #' Cross-Validation Data Splitter
 #'
 #' A function to split a dataset into
@@ -36,7 +35,12 @@
 #' sets.xval.10fold.rev <- lol.xval.split(SWD$X, SWD$Y, k=10, reverse=TRUE)
 #' @export
 slb.xval.split <- function(X, Y, k='loo', reverse=FALSE, ...) {
-  n <- length(Y)
+  y.2d <- check_ydims(Y)
+  if (y.2d) {
+    n <- dim(Y)[1]
+  } else {
+    n <- length(Y)
+  }
   n.x <- dim(X)[1]
   if (n != n.x) {
     stop("Your number of X samples and Y responses is not the same.")
@@ -44,7 +48,6 @@ slb.xval.split <- function(X, Y, k='loo', reverse=FALSE, ...) {
   if (k == 'loo') {
     k <- n  # loo is just xval with k=n
   }
-  y.2d <- check_ydims(Y)
   if (round(k) == k) {  # then xval is an integer
     samp.ids <- as.matrix(sample(1:n, n))  # the sample ids randomly permuted
     k.folds <- split(samp.ids, rep(1:k), drop=TRUE)  # split the sample ids into xval folds
@@ -66,7 +69,7 @@ slb.xval.split <- function(X, Y, k='loo', reverse=FALSE, ...) {
            X.test=X[test,,drop=FALSE], Y.test=Y.train)
     })
   } else {
-    stop("You have not entered a valid parameter for xval.")
+    stop("You have not entered a valid parameter for k.")
   }
   return(sets)
 }

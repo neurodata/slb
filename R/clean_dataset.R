@@ -1,7 +1,7 @@
 #' datasetset Cleansing
 #'
 #' A function for scrubbing a datasetset for usage with most standard algorithms. This involves one-hot-encoding columns that are probably categorical.
-#' @param dataset a list with the following:
+#' @param dataset a list with at least the following key-worded elements:
 #' \itemize{
 #' \item{\code{X}}{\code{[n, d]} matrix containing \code{n} samples in \code{d} dimensions.}
 #' \item{\code{Y}}{\code{[n, r]} matrix containing  or \code{[n]} vector containing regressors or class labels forsamples in \code{X}.}
@@ -17,7 +17,7 @@
 #' \item{\code{is.integer(clean.ohe)}}{Converts columns with < thr unique identifiers to one-hot encoded.}
 #' \item{\code{FALSE}}{Do not one-hot-encode any columns.}
 #' }
-#' @return A list containing the following:
+#' @return A list containing at least the following key-worded elements:
 #' \itemize{
 #' \item{X}{\code{[m, d+r]} the array with \code{m} samples in \code{d+r} dimensions, where \code{r} is the number of additional columns appended for encodings. \code{m < n} when  there are non-finite or \code{NaN} entries. \code{colnames(dataset)} returns the column names of the cleaned columns.}
 #' \item{Y}{\code{[m, r]} matrix or \code{[n]} vector containg regressors or class labels for samples in \code{X}. \code{m < n} when there are non-finite or \code{NaN} entries.}
@@ -37,27 +37,30 @@ clean.dataset <- function(dataset, clean.invalid=TRUE, clean.ohe=FALSE) {
   n <- length(sumX)
   samp <- 1:n
   if (clean.invalid) {
+    # check if any samples have invalid entries
     samp <- which(!is.nan(sumX) & is.finite(sumX) & !is.nan(sumY) & is.finite(sumY))
     exc <- which(is.nan(sumX) || !is.finite(sumX) || is.nan(sumY) || !is.finite(sumY))
   }
+  # grab the appropriate samples that don't have invalid entries
   X <- dataset$X[samp,]
   if (y.2d) {
     Y <- dataset$Y[samp,]
   } else {
     Y <- dataset$Y[samp]
   }
-  if (!is.null(dim(Y))) {
-
-  }
 
   dimx <- dim(X)
   n <- dimx[1]; d <- dimx[2]
   if (clean.ohe < 1) {
+    # if it's a threshold, it's clean.ohe*n
     Kmax <- clean.ohe*n
   } else if (round(clean.ohe) == clean.ohe) {
+    # if it's an integer, it's clean.ohe
     Kmax <- clean.ohe
   } else if (!isTRUE(clean.ohe)) {
-    Kmax <- d
+    # otherwise, if FALSE, just make it impossible to ever have a column with that
+    # many entries
+    Kmax <- d + 1
   }
   if (is.null(colnames(X))) {
     colnames(X) <- as.character(1:d)
@@ -79,9 +82,12 @@ clean.dataset <- function(dataset, clean.invalid=TRUE, clean.ohe=FALSE) {
     enc <- array(cname, dim=c(ifelse(K > Kmax || K <= 2, 1, K)))
     return(list(enc=enc, x=x))
   })
+  # grab all the potentially one-hot-encoded columns
   enc <- do.call(c, lapply(Xce, function(x) x$enc))
+  # grab the columns themselves
   Xc <- do.call(cbind, lapply(Xce, function(x) x$x))
   colnames(Xc) <- enc
-
+  # return  the whole dataset, making sure to put back unused columns from the dataset
+  # list at the beginning
   return(c(list(X=Xc, Y=Y, samp.incl=samp, samp.excluded=exc), dataset[!names(dataset) %in% c("X", "Y")]))
 }

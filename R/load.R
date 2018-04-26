@@ -43,19 +43,19 @@ available.repositories <- c("pmlb", "uci", "mnist")
 #' \item \code{FALSE} Do not one-hot-encode any columns.
 #' }
 #' @param ... trailing args.
-#' @return A list of lists, where each element is named for a dataset, containing the following:
+#' @return A list of lists, where each element is a key-worded list for a particular benchmark dataset, containing at least the following:
 #' \item{\code{X}}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}
 #' \item{\code{Y}}{\code{[n]} vector or \code{[n, r]} array with responses for each of the \code{n} samples.}
 #'
 #' @examples
-#' require(slbR)
+#' library(slb)
 #' # request 1 specific dataset from the pmlb dataset
-#' test <- load.datasets(repositories="pmlb", datasets="adult", clean.invalid=FALSE, clean.ohe=FALSE)
-#' length(test$adult$Y) == 48842 # a known example from the pmlb dataset
+#' test <- slb.load.datasets(repositories="pmlb", datasets="ESL", clean.invalid=FALSE, clean.ohe=FALSE)
+#' length(test$ESL$Y) == 488 # a known example from the pmlb dataset
 #'
 #' # request all of the pmlb classification datasets
 #' \dontrun{
-#' test <- load.datasets(repositories="pmlb", tasks="classification")
+#' test <- slb.load.datasets(repositories="pmlb", tasks="classification")
 #' length(test) <- 166  # validates that we loaded all of the classification datasets from pmlb
 #' }
 #' @author Eric Bridgeford
@@ -131,6 +131,5 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
     names(data) <- dat.names
     return(data)
   })
-  dat <- do.call(c, data.repos)
-  return(dat)
+  return(do.call(c, data.repos))
 }
