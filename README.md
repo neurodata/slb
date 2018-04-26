@@ -90,5 +90,5 @@ The package should take approximately 60 seconds to install on a recommended com
 As an example, load all classification datasets from the `PMLB` repository:
 ```
 library(slb)
-data <- slb.load.datasets(repositories="PMLB", task="classiciation")
+data <- slb.load.datasets(repositories="pmlb", task="classiciation")
 ```
