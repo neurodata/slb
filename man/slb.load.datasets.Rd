@@ -45,6 +45,8 @@ slb.load.datasets(repositories = NULL, datasets = NULL, tasks = NULL,
 \item \code{FALSE} Do not one-hot-encode any columns.
 }}
 
+\item{verbose}{whether to print messages to the console if a repository or dataset is being ignored. defaults to \code{TRUE}.}
+
 \item{...}{trailing args.}
 }
 \value{

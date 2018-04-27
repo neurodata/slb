@@ -16,11 +16,9 @@
 #' \item{if \code{!isTRUE(reverse)}, standard cross-validation, with k-1 training folds and 1 testing fold.}
 #' }
 #' @param ... optional args.
-#' @return sets the cross-validation sets as an object of class \code{"XV"}. Each element of the list contains the following items:
-#' \item{\code{X.train}}{the training data as a \code{[n - n/k, d]} array if \code{isTRUE(reverse)}, and a \code{[n/k, d]} array otherwise.}
-#' \item{\code{Y.train}}{the training labels as a \code{[n - n/k]} vector or \code{[n - n/k, r]} array if \code{isTRUE(reverse)}, and a \code{[n/k, d]} vector or \code{[n/k, r]} array otherwise.}
-#' \item{\code{X.test}}{the testing data as a \code{[n/k, d]} array if \code{isTRUE(reverse)}, and a \code{[n - n/k, d]} array otherwise.}
-#' \item{\code{Y.test}}{the testing labels as a \code{[n/k]} vector or \code{[n/k, r]} array if \code{isTRUE(reverse)}, and a \code{[n -n/k]} vector or \code{[n - n/k, r]} array otherwise.}
+#' @return sets the cross-validation sets as an object of class \code{"XV"} containing the following:
+#' \item{\code{train}}{is \code{[n - n/k]} vector if \code{isTRUE(reverse)}, and a \code{[n/k]} vector otherwise.}
+#' \item{\code{test}}{is \code{[n/k]} vector if \code{isTRUE(reverse)}, and a \code{[n - n/k]} vector otherwise.}
 #' @author Eric Bridgeford
 #' @examples
 #' # prepare data for 10-fold validation
@@ -54,22 +52,14 @@ slb.xval.split <- function(X, Y, k='loo', reverse=FALSE, ...) {
     # partition X and Y appropriately into training and testing sets
     sets <- lapply(k.folds, function(fold) {
       if (reverse) {
-        train <- fold; test <- -fold
+        train <- samp.ids[fold]; test <- samp.ids[-fold]
       } else {
-        train <- -fold; test <- fold
+        train <- samp.ids[-fold]; test <- samp.ids[fold]
       }
-      if (y.2d) {
-        Y.train <- Y[train,,drop=FALSE]
-        Y.test <- Y[-train,,drop=FALSE]
-      } else {
-        Y.train <- Y[train,drop=FALSE]
-        Y.test <- Y[-train,drop=FALSE]
-      }
-      list(X.train=X[train,,drop=FALSE], Y.train=Y.train,
-           X.test=X[test,,drop=FALSE], Y.test=Y.train)
+      list(train=train, test=test)
     })
   } else {
     stop("You have not entered a valid parameter for k.")
   }
-  return(sets)
+  return(structure(sets, class="XV"))
 }
