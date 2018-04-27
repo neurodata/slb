@@ -7,7 +7,7 @@
 clean.dataset(dataset, clean.invalid = TRUE, clean.ohe = FALSE)
 }
 \arguments{
-\item{dataset}{a list with the following:
+\item{dataset}{a list with at least the following key-worded elements:
 \itemize{
 \item{\code{X}}{\code{[n, d]} matrix containing \code{n} samples in \code{d} dimensions.}
 \item{\code{Y}}{\code{[n, r]} matrix containing  or \code{[n]} vector containing regressors or class labels forsamples in \code{X}.}
@@ -27,7 +27,7 @@ clean.dataset(dataset, clean.invalid = TRUE, clean.ohe = FALSE)
 }}
 }
 \value{
-A list containing the following:
+A list containing at least the following key-worded elements:
 \itemize{
 \item{X}{\code{[m, d+r]} the array with \code{m} samples in \code{d+r} dimensions, where \code{r} is the number of additional columns appended for encodings. \code{m < n} when  there are non-finite or \code{NaN} entries. \code{colnames(dataset)} returns the column names of the cleaned columns.}
 \item{Y}{\code{[m, r]} matrix or \code{[n]} vector containg regressors or class labels for samples in \code{X}. \code{m < n} when there are non-finite or \code{NaN} entries.}

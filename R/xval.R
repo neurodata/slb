@@ -26,13 +26,13 @@
 #' # prepare data for 10-fold validation
 #' library(slb)
 #' data(SWD)
-#' sets.xval.10fold <- lol.xval.split(SWD$X, SWD$Y, k=10)
+#' sets.xval.10fold <- slb.xval.split(SWD$X, SWD$Y, k=10)
 #'
 #' # prepare data for loo validation
-#' sets.xval.loo <- lol.xval.split(SWD$X, SWD$Y, k='loo')
+#' sets.xval.loo <- slb.xval.split(SWD$X, SWD$Y, k='loo')
 #'
 #' # reverse the training and testing sets
-#' sets.xval.10fold.rev <- lol.xval.split(SWD$X, SWD$Y, k=10, reverse=TRUE)
+#' sets.xval.10fold.rev <- slb.xval.split(SWD$X, SWD$Y, k=10, reverse=TRUE)
 #' @export
 slb.xval.split <- function(X, Y, k='loo', reverse=FALSE, ...) {
   y.2d <- check_ydims(Y)

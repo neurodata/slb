@@ -42,6 +42,7 @@ available.repositories <- c("pmlb", "uci", "mnist")
 #' \item \code{is.integer(clean.ohe)} Converts columns with < thr unique identifiers to one-hot encoded.
 #' \item \code{FALSE} Do not one-hot-encode any columns.
 #' }
+#' @param verbose whether to print messages to the console if a repository or dataset is being ignored. defaults to \code{TRUE}.
 #' @param ... trailing args.
 #' @return A list of lists, where each element is a key-worded list for a particular benchmark dataset, containing at least the following:
 #' \item{\code{X}}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}

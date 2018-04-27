@@ -5,7 +5,7 @@
 \title{Load Datasets from Available Repositories}
 \usage{
 slb.load.datasets(repositories = NULL, datasets = NULL, tasks = NULL,
-  clean.nan = TRUE, clean.ohe = FALSE, verbose = TRUE, ...)
+  clean.invalid = TRUE, clean.ohe = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{repositories}{the name of the repository you would like to query a dataset from. Defaults to \code{NULL}, which will return datasets matching from all repositories.
@@ -32,6 +32,12 @@ slb.load.datasets(repositories = NULL, datasets = NULL, tasks = NULL,
 \item \code{c("taskid1", "taskid2", ...)} Load data for the indicated tasks.
 }}
 
+\item{clean.invalid}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
+\itemize{
+\item \code{TRUE} Remove samples that have features with \code{NaN} entries or non-finite.
+\item \code{FALSE} Do not remove samples that have features with \code{NaN} entries or are non-finite..
+}}
+
 \item{clean.ohe}{options for whether to one-hot-encode columns. Defaults to \code{FALSE}.
 \itemize{
 \item \code{clean.ohe < 1} Converts columns with < thr*n unique identifiers to one-hot encoded.
@@ -40,15 +46,9 @@ slb.load.datasets(repositories = NULL, datasets = NULL, tasks = NULL,
 }}
 
 \item{...}{trailing args.}
-
-\item{clean.invalid}{whether to remove samples with invalid entries. Defaults to \code{TRUE}.
-\itemize{
-\item \code{TRUE} Remove samples that have features with \code{NaN} entries or non-finite.
-\item \code{FALSE} Do not remove samples that have features with \code{NaN} entries or are non-finite..
-}}
 }
 \value{
-A list of lists, where each element is named for a dataset, containing the following:
+A list of lists, where each element is a key-worded list for a particular benchmark dataset, containing at least the following:
 \item{\code{X}}{\code{[n, d]} array with the \code{n} samples in \code{d} dimensions.}
 \item{\code{Y}}{\code{[n]} vector or \code{[n, r]} array with responses for each of the \code{n} samples.}
 }
@@ -56,14 +56,14 @@ A list of lists, where each element is named for a dataset, containing the follo
 A function to load a specified dataset from the PMLB dataset.
 }
 \examples{
-require(slbR)
+library(slb)
 # request 1 specific dataset from the pmlb dataset
-test <- load.datasets(repositories="pmlb", datasets="adult", clean.nan=FALSE, clean.ohe=FALSE)
-length(test$adult$Y) == 48842 # a known example from the pmlb dataset
+test <- slb.load.datasets(repositories="pmlb", datasets="ESL", clean.invalid=FALSE, clean.ohe=FALSE)
+length(test$ESL$Y) == 488 # a known example from the pmlb dataset
 
 # request all of the pmlb classification datasets
 \dontrun{
-test <- load.datasets(repositories="pmlb", tasks="classification")
+test <- slb.load.datasets(repositories="pmlb", tasks="classification")
 length(test) <- 166  # validates that we loaded all of the classification datasets from pmlb
 }
 }
