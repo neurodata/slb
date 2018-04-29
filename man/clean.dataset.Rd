@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_dataset.R
 \name{clean.dataset}
 \alias{clean.dataset}
-\title{datasetset Cleansing}
+\title{Data Cleaning}
 \usage{
 clean.dataset(dataset, clean.invalid = TRUE, clean.ohe = FALSE)
 }

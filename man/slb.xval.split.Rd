@@ -26,11 +26,9 @@ slb.xval.split(X, Y, k = "loo", reverse = FALSE, ...)
 \item{...}{optional args.}
 }
 \value{
-sets the cross-validation sets as an object of class \code{"XV"}. Each element of the list contains the following items:
-\item{\code{X.train}}{the training data as a \code{[n - n/k, d]} array if \code{isTRUE(reverse)}, and a \code{[n/k, d]} array otherwise.}
-\item{\code{Y.train}}{the training labels as a \code{[n - n/k]} vector or \code{[n - n/k, r]} array if \code{isTRUE(reverse)}, and a \code{[n/k, d]} vector or \code{[n/k, r]} array otherwise.}
-\item{\code{X.test}}{the testing data as a \code{[n/k, d]} array if \code{isTRUE(reverse)}, and a \code{[n - n/k, d]} array otherwise.}
-\item{\code{Y.test}}{the testing labels as a \code{[n/k]} vector or \code{[n/k, r]} array if \code{isTRUE(reverse)}, and a \code{[n -n/k]} vector or \code{[n - n/k, r]} array otherwise.}
+sets the cross-validation sets as an object of class \code{"XV"} containing the following:
+\item{\code{train}}{is \code{[n - n/k]} vector if \code{isTRUE(reverse)}, and a \code{[n/k]} vector otherwise.}
+\item{\code{test}}{is \code{[n/k]} vector if \code{isTRUE(reverse)}, and a \code{[n - n/k]} vector otherwise.}
 }
 \description{
 A function to split a dataset into
@@ -40,13 +38,13 @@ training and testing sets for cross validation.
 # prepare data for 10-fold validation
 library(slb)
 data(SWD)
-sets.xval.10fold <- lol.xval.split(SWD$X, SWD$Y, k=10)
+sets.xval.10fold <- slb.xval.split(SWD$X, SWD$Y, k=10)
 
 # prepare data for loo validation
-sets.xval.loo <- lol.xval.split(SWD$X, SWD$Y, k='loo')
+sets.xval.loo <- slb.xval.split(SWD$X, SWD$Y, k='loo')
 
 # reverse the training and testing sets
-sets.xval.10fold.rev <- lol.xval.split(SWD$X, SWD$Y, k=10, reverse=TRUE)
+sets.xval.10fold.rev <- slb.xval.split(SWD$X, SWD$Y, k=10, reverse=TRUE)
 }
 \author{
 Eric Bridgeford

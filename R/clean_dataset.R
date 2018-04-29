@@ -1,4 +1,4 @@
-#' datasetset Cleansing
+#' Data Cleaning
 #'
 #' A function for scrubbing a datasetset for usage with most standard algorithms. This involves one-hot-encoding columns that are probably categorical.
 #' @param dataset a list with at least the following key-worded elements:
