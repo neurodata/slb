@@ -5,7 +5,7 @@ load.data <- function(...)
   name <- data(..., envir = e)[1]
   e[[name]]
 }
-available.repositories <- c("pmlb", "uci", "mnist")
+available.repositories <- c("pmlb", "uci", "mnist", "neurodata")
 
 #' Load Datasets from Available Repositories
 #'
@@ -16,6 +16,7 @@ available.repositories <- c("pmlb", "uci", "mnist")
 #' \item \code{"pmlb"} Load datasets from the Penn Machine-Learning Benchmarks.
 #' \item \code{"uci"} Load datasets from the University of California - Irvine Machine Learning Repository.
 #' \item \code{"mnist"} Load datasets from the MNIST dataset.
+#' \item \code{"neurodata"} Load datasets from the neurodata repository.
 #' \item \code{c("repo1", "repo2", ...)} Load data from the indicated repositories.
 #' }
 #' @param datasets the name of the dataset you wish to load. Defaults to \code{NULL}.
@@ -57,6 +58,11 @@ available.repositories <- c("pmlb", "uci", "mnist")
 #' # request all of the pmlb classification datasets
 #' \dontrun{
 #' test <- slb.load.datasets(repositories="pmlb", tasks="classification")
+#' length(test) <- 166  # validates that we loaded all of the classification datasets from pmlb
+#' }
+#' # request all of the datasets from pmlb and uci for both classification and regression tasks
+#' \dontrun{
+#' test <- slb.load.datasets(repositories=c("pmlb", "uci"), tasks=c("classification", "regression"))
 #' length(test) <- 166  # validates that we loaded all of the classification datasets from pmlb
 #' }
 #' @author Eric Bridgeford
@@ -115,6 +121,21 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
       # check if desired datasets are available in the given repository
       if (!is.null(datasets)) {
         # if datasets are specified, filter only for the ones the user queries for
+        dat.names <- dat.names[dat.names %in% datasets]
+      }
+    } else if (repository == "neurodata") {
+      if (!is.null(tasks)) {
+        if ("classification" %in% tasks) {
+          dat.names <- load.data("ndClassTasks")[["dataset"]]
+        } else if ("regression" %in% tasks) {
+          if (verbose) {
+            print("neurodata repository does not contain Regression Tasks. Skipping...")
+          }
+        }
+      } else {
+        dat.names <- c(as.character(load.data("ndClassTasks")[["dataset"]]))
+      }
+      if (!is.null(datasets)) {
         dat.names <- dat.names[dat.names %in% datasets]
       }
     } else {
