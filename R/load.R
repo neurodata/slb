@@ -125,7 +125,7 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
       dat.name <- as.character(dat.name)
       x <- get(dat.name)
       if (clean.invalid || clean.ohe) {
-        x <- clean.dataset(x, clean.invalid=clean.invalid, clean.ohe=10)
+        x <- clean.dataset(x, clean.invalid=clean.invalid, clean.ohe=clean.ohe)
       }
       return(x)
     })
