@@ -5,7 +5,7 @@ load.data <- function(...)
   name <- data(..., envir = e)[1]
   e[[name]]
 }
-available.repositories <- c("pmlb", "uci", "mnist", "neurodata")
+available.repositories <- c("pmlb", "uci", "mnist", "neurodata", "weka")
 
 #' Load Datasets from Available Repositories
 #'
@@ -138,7 +138,22 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
       if (!is.null(datasets)) {
         dat.names <- dat.names[dat.names %in% datasets]
       }
-    } else {
+    } else if (repository == "weka") {
+      if (!is.null(tasks)) {
+        if ("classification" %in% tasks) {
+          if (verbose) {
+            print("WEKA repository does not contain Classification Tasks. Skipping...")
+          }
+        } else if ("regression" %in% tasks) {
+          dat.names <- load.data("wekaRegTasks")[["dataset"]]
+        }
+      } else {
+        dat.names <- c(as.character(load.data("wekaRegTasks")[["dataset"]]))
+      }
+      if (!is.null(datasets)) {
+        dat.names <- dat.names[dat.names %in% datasets]
+      }
+    }else {
       stop("You have attempted to pass an invalid repository. Supported repositories are c(\'pmlb\', \'uci\', \'mnist\').")
     }
     # load all specified datasets for the particular repository
@@ -147,6 +162,9 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
       x <- get(dat.name)
       if (clean.invalid || clean.ohe) {
         x <- clean.dataset(x, clean.invalid=clean.invalid, clean.ohe=clean.ohe)
+        if (is.null(x$X)) {
+          warning(sprintf("All samples in %s contain NA values and have been excluded", dat.name))
+        }
       }
       return(x)
     })
@@ -155,3 +173,7 @@ slb.load.datasets <- function(repositories=NULL, datasets=NULL, tasks=NULL, clea
   })
   return(do.call(c, data.repos))
 }
+
+
+
+

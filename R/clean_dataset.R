@@ -36,21 +36,26 @@ clean.dataset <- function(dataset, clean.invalid=TRUE, clean.ohe=FALSE) {
   }
   n <- length(sumX)
   samp <- 1:n
+  exc <- NULL
   if (clean.invalid) {
     # check if any samples have invalid entries
     samp <- which(!is.nan(sumX) & is.finite(sumX) & !is.nan(sumY) & is.finite(sumY))
-    exc <- which(is.nan(sumX) || !is.finite(sumX) || is.nan(sumY) || !is.finite(sumY))
+    exc <- which(is.nan(sumX) | !is.finite(sumX) | is.nan(sumY) | !is.finite(sumY))
   }
+
   # grab the appropriate samples that don't have invalid entries
-  X <- dataset$X[samp,]
+  n <- length(samp); d <- ncol(dataset$X)
+  if (n == 0) {
+    # If all samples contain NA values then return NULL
+    return(c(list(X=NULL, Y=NULL, samp.incl=samp, samp.excluded=exc), dataset[!names(dataset) %in% c("X", "Y")]))
+  }
+  X <- matrix(dataset$X[samp,], byrow=TRUE, ncol = d, nrow = n)
   if (y.2d) {
     Y <- dataset$Y[samp,]
   } else {
     Y <- dataset$Y[samp]
   }
 
-  dimx <- dim(X)
-  n <- dimx[1]; d <- dimx[2]
   if (clean.ohe < 1) {
     # if it's a threshold, it's clean.ohe*n
     Kmax <- clean.ohe*n
